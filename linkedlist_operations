@@ -1,0 +1,95 @@
+public class Linkedlist{
+    Node head;
+    public class Node{
+        int data;
+        Node prev;
+        Node next;
+            Node(int new_data){
+                data = new_data;
+                prev = null;
+                next = null;
+                
+            }
+    }
+    void push(int new_data){
+        Node new_node = new Node(new_data);
+        new_node.prev = null;
+        new_node.next = head ;
+        head = new_node;
+    }
+    void append(int new_data){
+        if(head==null){
+            head = new Node(new_data);
+            return;
+            
+        }
+        Node new_node = new Node(new_data);
+        new_node.next = null;
+        Node ptr = head ;
+        while(ptr.next!=null){
+            ptr = ptr.next;
+        }
+        ptr.next=new_node;
+        new_node.prev = ptr;
+        
+        
+        
+    }
+    void insert(int prev_data,int new_data){
+        Node new_node = new Node(new_data);
+        Node ptr = head;
+        int key = prev_data;
+        while(key!=ptr.data && ptr!=null){
+            ptr = ptr.next;
+        }
+        
+        new_node.next = ptr.next;
+        ptr.prev = new_node;
+        ptr.next = new_node;
+        new_node.prev = ptr;
+        
+    }
+    void delete(int element){
+     int key = element;
+     Node ptr = head;
+     
+     while(key!=ptr.data && ptr!=null){
+         ptr = ptr.next;
+         
+     }
+     if(ptr.data == key){
+         ptr.prev.next = ptr.next ;
+         ptr.next.prev = ptr.prev ;
+         
+     }
+     
+    }
+    void printlist(){
+        Node ptr = head;
+        while(ptr!=null){
+            System.out.print(ptr.data+" ");
+            ptr = ptr.next;
+        }
+    }
+    
+    public static void main(String args[]){
+        Linkedlist list = new Linkedlist();
+        list.push(30);
+        list.push(20);
+        list.push(10);
+        list.append(40);
+        list.insert(30,35);
+        list.insert(20,25);
+        
+        list.printlist();
+        
+        list.delete(10);
+        list.delete(35);
+        System.out.println("linkedlist after deleting one node:\n ");
+        list.printlist();
+        //System.out.println(list.head.next);
+        
+        //System.out.print(list.head.next.next.next.next);
+    }
+    
+}
